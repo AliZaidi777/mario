@@ -4,9 +4,10 @@ public class MarioMovement : MonoBehaviour
 
 {
     public Animator animator;
-  
+    public AudioClip moveMario;
+    public AudioClip jumpMario;
     Rigidbody2D rb;
-   public float movementSpeed = 6f;
+    public float movementSpeed = 6f;
     public float jumpForce = 5f;
     // Start is called before the first frame update
     void Start()
@@ -22,10 +23,12 @@ public class MarioMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         if(horizontalInput == 1)
         {
+            AudioSource.PlayClipAtPoint(moveMario, transform.position, 1);
             animator.SetInteger("Int", 1);
         }
         if (horizontalInput == -1)
         {
+            AudioSource.PlayClipAtPoint(moveMario, transform.position, 1);
             animator.SetInteger("Int", -1);
         }
         if (horizontalInput == 0)
@@ -36,6 +39,7 @@ public class MarioMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            AudioSource.PlayClipAtPoint(jumpMario, transform.position, 1);
             animator.SetTrigger("Trigger");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
