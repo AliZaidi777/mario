@@ -6,6 +6,7 @@ public class MarioMovement : MonoBehaviour
     public Animator animator;
     public AudioClip moveMario;
     public AudioClip jumpMario;
+    public AudioClip enemySound;
     Rigidbody2D rb;
     public float movementSpeed = 6f;
     public float jumpForce = 5f;
@@ -57,6 +58,7 @@ public class MarioMovement : MonoBehaviour
         if (collision.gameObject.tag == "enemy")
         {
             Destroy(collision.gameObject);
+            AudioSource.PlayClipAtPoint(enemySound, transform.position, 1);
         }
     }
 }
