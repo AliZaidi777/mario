@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    int x = -1;
+    int x = -2;
     int y = 0;
-  
+    public Animator animator;
     Rigidbody2D rb;
 
     void Start()
@@ -25,12 +25,17 @@ public class EnemyMovement : MonoBehaviour
 
             x = x * -1;
         }
-        if (collision.gameObject.tag == "enemy")
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "mario")
         {
-            x = x * -1;
+            animator.SetInteger("Int", 1);
         }
     }
- 
+
+
 }
 
 

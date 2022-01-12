@@ -57,7 +57,7 @@ public class MarioMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "enemy")
         {
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject,1f);
             AudioSource.PlayClipAtPoint(enemySound, transform.position, 1);
         }
     }
