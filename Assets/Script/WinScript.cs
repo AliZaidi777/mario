@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class WinScript : MonoBehaviour
 {
+    public GameObject gameover;
     void  OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "mario")
+        if(other.tag == "DTile")
         {
-            SceneManager.LoadScene("win");
+            //SceneManager.LoadScene("win");
+            gameover.SetActive(true);
         }
     }
 }
