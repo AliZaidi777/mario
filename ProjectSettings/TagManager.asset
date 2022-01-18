@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - mario
   - DTile
+  - stick
   layers:
   - Default
   - TransparentFX

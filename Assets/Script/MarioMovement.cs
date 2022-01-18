@@ -7,6 +7,8 @@ public class MarioMovement : MonoBehaviour
     public AudioClip moveMario;
     public AudioClip jumpMario;
     public AudioClip enemySound;
+    public AudioClip FlagSound;
+    public GameObject Flag;
     Rigidbody2D rb;
     public float movementSpeed = 6f;
     public float jumpForce = 5f;
@@ -59,6 +61,11 @@ public class MarioMovement : MonoBehaviour
         {
             Destroy(collision.gameObject,1f);
             AudioSource.PlayClipAtPoint(enemySound, transform.position, 1);
+        }
+        if(collision.gameObject.tag == "stick")
+        {
+            LeanTween.moveY(Flag, -2.68f, 2);
+            AudioSource.PlayClipAtPoint(FlagSound, transform.position, 1);
         }
     }
 }
