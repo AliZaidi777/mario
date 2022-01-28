@@ -11,19 +11,20 @@ public class WinScript : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Example());
+       // StartCoroutine(Example());
     }
 
     IEnumerator Example()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         gameover.SetActive(true);
     }
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.tag == "DTile")
+        if(collision.gameObject.tag == "DTile")
         {
-           // Mario.SetActive(false);
+            // Mario.SetActive(false);
+            Debug.Log(32333320);
             WinFlag.SetActive(true);
             StartCoroutine(Example());
         }
