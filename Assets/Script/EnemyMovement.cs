@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    int x = 2;
-    int y = 0;
+    int x = 1;
+   // int y = 0;
     public Animator animator;
     Rigidbody2D rb;
+    public Rigidbody2D rbA;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rbA = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
 
-        rb.velocity = new Vector2(x, y);
+        rb.velocity = new Vector2(x, 0);
+        rbA.velocity = new Vector2(3, 0);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {

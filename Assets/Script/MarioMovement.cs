@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 public class MarioMovement : MonoBehaviour
 
 {
@@ -12,6 +13,8 @@ public class MarioMovement : MonoBehaviour
     Rigidbody2D rb;
     public float movementSpeed = 6f;
     public float jumpForce = 5f;
+    public TextMeshProUGUI coin;
+    int x = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +69,11 @@ public class MarioMovement : MonoBehaviour
         {
             LeanTween.moveY(Flag, -2.68f, 2);
             AudioSource.PlayClipAtPoint(FlagSound, transform.position, 1);
+        }
+        if (collision.gameObject.tag == "coin")
+        {
+            x++;
+            coin.text = x.ToString();
         }
     }
 }

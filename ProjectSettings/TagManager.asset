@@ -9,6 +9,7 @@ TagManager:
   - mario
   - DTile
   - stick
+  - coin
   layers:
   - Default
   - TransparentFX
