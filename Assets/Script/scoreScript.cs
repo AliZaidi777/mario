@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class scoreScript : MonoBehaviour
 {
     public TextMeshProUGUI point;
+    public TextMeshProUGUI Hscore;
     int x = 0;
     public GameObject Aenemy;
+    public GameObject Benemy;
+
+    void Start()
+    {
+        Hscore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,14 +25,43 @@ public class scoreScript : MonoBehaviour
         }
         if (collision.gameObject.tag == "A")
         {
-            Debug.Log(234);
+            x = x + 200;
+            point.text = x.ToString();
             Aenemy.SetActive(true);
         }
         if (collision.gameObject.tag == "Aenemy")
         {
-            Debug.Log(213);
             x = x + 1000;
+            point.text = x.ToString();
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "B")
+        {
+            x = x + 200;
+            point.text = x.ToString();
+            Benemy.SetActive(true);
+        }
+        if (collision.gameObject.tag == "Benemy")
+        {
+            x = x + 1000;
+            point.text = x.ToString();
+            Destroy(collision.gameObject);
+            Debug.Log(2340);
+        }
+        if (collision.gameObject.tag == "stick")
+        {
+            x = x + 2000;
+            point.text = x.ToString();
+        }
+        if (collision.gameObject.tag == "enemy")
+        {
+            x = x + 300;
+            point.text = x.ToString();
+        }
+        if(x > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", x);
+            Hscore.text = PlayerPrefs.GetInt("HighScore").ToString();
         }
     }
 

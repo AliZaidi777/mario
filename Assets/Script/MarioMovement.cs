@@ -10,11 +10,13 @@ public class MarioMovement : MonoBehaviour
     public AudioClip enemySound;
     public AudioClip FlagSound;
     public GameObject Flag;
+    public GameObject gameover;
     Rigidbody2D rb;
-    public float movementSpeed = 6f;
-    public float jumpForce = 5f;
+    public float movementSpeed = 8f;
+    public float jumpForce = 4f;
     public TextMeshProUGUI coin;
     int x = 0;
+    int y = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,7 @@ public class MarioMovement : MonoBehaviour
         {
             animator.SetInteger("Int", 2);
         }
+       
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

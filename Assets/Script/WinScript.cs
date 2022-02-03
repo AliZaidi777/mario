@@ -18,6 +18,7 @@ public class WinScript : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         gameover.SetActive(true);
+        Time.timeScale = 0;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

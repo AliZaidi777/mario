@@ -23,6 +23,7 @@ public class CountdownTimmer : MonoBehaviour
         if(currentTime <= 0)
         {
             gameover.SetActive(true);
+            Time.timeScale = 0;
             currentTime = 0;
         }
 

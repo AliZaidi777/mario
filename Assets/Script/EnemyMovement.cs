@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    int x = 1;
+    int x = -2;
    // int y = 0;
     public Animator animator;
     Rigidbody2D rb;
@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     {
 
         rb.velocity = new Vector2(x, 0);
-        rbA.velocity = new Vector2(3, 0);
+        rbA.velocity = new Vector2(1f, 0);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
