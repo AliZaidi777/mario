@@ -25,7 +25,6 @@ public class WinScript : MonoBehaviour
         if(collision.gameObject.tag == "DTile")
         {
             // Mario.SetActive(false);
-            Debug.Log(32333320);
             WinFlag.SetActive(true);
             StartCoroutine(Example());
         }

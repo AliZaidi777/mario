@@ -46,7 +46,6 @@ public class scoreScript : MonoBehaviour
             x = x + 1000;
             point.text = x.ToString();
             Destroy(collision.gameObject);
-            Debug.Log(2340);
         }
         if (collision.gameObject.tag == "stick")
         {

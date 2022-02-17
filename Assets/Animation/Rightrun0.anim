@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: marioAnimation
+  m_Name: Rightrun0
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -1975635887328401948, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
-    - time: 1.3833333
-      value: {fileID: -3557554893070573299, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+      value: {fileID: -1509298647979629103, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - time: 0.16666667
+      value: {fileID: -3889344650559148656, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - time: 0.35
+      value: {fileID: -1981437635880020547, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - time: 0.45
+      value: {fileID: 1062266681453288945, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,14 +46,16 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -1975635887328401948, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
-    - {fileID: -3557554893070573299, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - {fileID: -1509298647979629103, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - {fileID: -3889344650559148656, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - {fileID: -1981437635880020547, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
+    - {fileID: 1062266681453288945, guid: 783a07edb548d7a40bf85f7de9c5a6a9, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.4
+    m_StopTime: 0.46666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
