@@ -7,7 +7,7 @@ using TMPro;
 public class CountdownTimmer : MonoBehaviour
 {
     float currentTime = 0f;
-    float startingTime = 60f;
+    float startingTime = 1540f;
     public TextMeshProUGUI countDownText;
     public GameObject gameover;
     void Start()

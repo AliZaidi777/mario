@@ -5,16 +5,18 @@ public class MarioMovement : MonoBehaviour
 
 {
     public Animator animator;
+    public RuntimeAnimatorController stage0, stage1, stage2;
     public AudioClip moveMario;
     public AudioClip jumpMario;
     public AudioClip enemySound;
     public AudioClip FlagSound;
     public GameObject Flag;
     public GameObject gameover;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     public float movementSpeed = 8f;
     public float jumpForce = 14f;
     public TextMeshProUGUI coin;
+    public Collider2D polygon;
     int x = 0;
     int y = 0;
     bool jump = true;
@@ -22,13 +24,25 @@ public class MarioMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator.runtimeAnimatorController = stage0;
         animator.SetTrigger("Trigger");
-      
+        if (y == 0)
+        {
+            polygon.enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (y == 0)
+        {
+            polygon.enabled = false;
+        }
+        if (y > 0)
+        {
+            polygon.enabled = true;
+        }
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         if(horizontalInput == 1)
@@ -57,10 +71,16 @@ public class MarioMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("left shift"))
+       if( Input.GetKeyDown(KeyCode.LeftShift))
         {
-            movementSpeed = 12f;
+            movementSpeed++;
         }
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            movementSpeed--;
+        }
+
+
 
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -77,13 +97,25 @@ public class MarioMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "enemy")
         {
-            y++;
-            if (y > 1)
+            y--;
+            if (y == -1)
             {
                 Destroy(gameObject);
             }
+            if (y == 0)
+            { 
+                animator.runtimeAnimatorController = stage0;
+            }
+            if (y == 1)
+            {
+
+                animator.runtimeAnimatorController = stage1;
+            }
         }
     }
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "enemy")
@@ -95,7 +127,7 @@ public class MarioMovement : MonoBehaviour
                 coliders[i].enabled = false;
             }
 
-            Destroy(collision.gameObject, 1f);
+            Destroy(collision.gameObject, 0.2f);
             AudioSource.PlayClipAtPoint(enemySound, transform.position, 1);
         }
 
@@ -111,7 +143,14 @@ public class MarioMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "Aenemy")
         {
-            animator.SetLayerWeight(1, 1);
+            animator.runtimeAnimatorController = stage1;
+            y = 1;
+        }
+    
+        if (collision.gameObject.tag == "Benemy")
+        {
+            animator.runtimeAnimatorController = stage2;
+            y = 2;
         }
     }
 }

@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour
    // int y = 0;
     public Animator animator;
    public Rigidbody2D rb;
-   // public Rigidbody2D rbA;
+   // public Rigidbody2D rb2;
 
     void Start()
     {
