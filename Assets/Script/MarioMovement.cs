@@ -20,6 +20,7 @@ public class MarioMovement : MonoBehaviour
     int x = 0;
     int y = 0;
     bool jump = true;
+    int z = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -85,7 +86,6 @@ public class MarioMovement : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-     
         {
             jump = true;
         }
@@ -97,10 +97,12 @@ public class MarioMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "enemy")
         {
-            y--;
+            y = y-1;
             if (y == -1)
             {
                 Destroy(gameObject);
+                gameover.SetActive(true);
+                Time.timeScale = 0;
             }
             if (y == 0)
             { 
@@ -127,7 +129,7 @@ public class MarioMovement : MonoBehaviour
                 coliders[i].enabled = false;
             }
 
-            Destroy(collision.gameObject, 0.2f);
+            Destroy(collision.gameObject, 0.5f);
             AudioSource.PlayClipAtPoint(enemySound, transform.position, 1);
         }
 
@@ -152,5 +154,6 @@ public class MarioMovement : MonoBehaviour
             animator.runtimeAnimatorController = stage2;
             y = 2;
         }
+       
     }
 }
