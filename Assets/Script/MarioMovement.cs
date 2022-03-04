@@ -6,7 +6,7 @@ public class MarioMovement : MonoBehaviour
 {
     public Animator animator;
     public RuntimeAnimatorController stage0, stage1, stage2;
-    public int currentSage = 0;
+    public static int currentSage = 0;
     public AudioClip moveMario;
     public AudioClip jumpMario;
     public AudioClip enemySound;
@@ -15,12 +15,11 @@ public class MarioMovement : MonoBehaviour
     public GameObject gameover;
     public GameObject tile;
     public GameObject Aenemy;
-    public GameObject Bombtile;
     public Rigidbody2D rb;
     public float movementSpeed = 8f;
     public float jumpForce = 14f;
     public TextMeshProUGUI coin;
-    public Collider2D polygon;
+    public Collider2D collider;
     int x = 0;
     bool jump = true;
     float jumpTime = 0.2f;
@@ -34,7 +33,7 @@ public class MarioMovement : MonoBehaviour
         animator.SetTrigger("Trigger");
         if (currentSage == 0)
         {
-            polygon.enabled = false;
+            collider.enabled = false;
         }
     }
 
@@ -62,11 +61,11 @@ public class MarioMovement : MonoBehaviour
         }
         if (currentSage == 0)
         {
-            polygon.enabled = false;
+            collider.enabled = false;
         }
         if (currentSage > 0)
         {
-            polygon.enabled = true;
+            collider.enabled = true;
         }
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -141,7 +140,7 @@ public class MarioMovement : MonoBehaviour
        
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "EnemyHitPoint")
         {
@@ -170,7 +169,7 @@ public class MarioMovement : MonoBehaviour
             AudioSource.PlayClipAtPoint(FlagSound, transform.position, 1);
             Time.timeScale = 0;
            
-        }  
+        } 
         if (collision.gameObject.tag == "coin")
         {
             x++;
@@ -180,13 +179,17 @@ public class MarioMovement : MonoBehaviour
         {
             currentSage++;
         }
-        if (collision.gameObject.tag == "bombtile")
-        {
-            Debug.Log(234567890);
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            bombis = true;
-        
-        }
 
+
+        if (collision.isTrigger)
+        {
+            BombScript bombScript = collision.GetComponent<BombScript>();
+
+            if(bombScript != null)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                bombScript.PlayerHit(currentSage);
+            }
+        }
     }
 }

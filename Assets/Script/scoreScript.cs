@@ -10,6 +10,8 @@ public class scoreScript : MonoBehaviour
     int x = 0;
     public GameObject Aenemy;
     public GameObject Benemy;
+    public GameObject Aenemy2;
+    public GameObject Benemy2;
 
     void Start()
     {
@@ -27,7 +29,14 @@ public class scoreScript : MonoBehaviour
         {
             x = x + 200;
             point.text = x.ToString();
-            Aenemy.SetActive(true);
+            if (MarioMovement.currentSage == 0)
+            {
+                Aenemy.SetActive(true);
+            }
+            else
+            {
+                Benemy2.SetActive(true);
+            }
         }
         if (collision.gameObject.tag == "poweUp")
         {
@@ -39,7 +48,14 @@ public class scoreScript : MonoBehaviour
         {
             x = x + 200;
             point.text = x.ToString();
+            if(MarioMovement.currentSage == 0)
+            {
+                Aenemy2.SetActive(true);
+            }
+            else
+            {
             Benemy.SetActive(true);
+            }
         }
         if (collision.gameObject.tag == "poweUp")
         {
