@@ -29,7 +29,7 @@ public class scoreScript : MonoBehaviour
             point.text = x.ToString();
             Aenemy.SetActive(true);
         }
-        if (collision.gameObject.tag == "Aenemy")
+        if (collision.gameObject.tag == "poweUp")
         {
             x = x + 1000;
             point.text = x.ToString();
@@ -41,7 +41,7 @@ public class scoreScript : MonoBehaviour
             point.text = x.ToString();
             Benemy.SetActive(true);
         }
-        if (collision.gameObject.tag == "Benemy")
+        if (collision.gameObject.tag == "poweUp")
         {
             x = x + 1000;
             point.text = x.ToString();

@@ -6,28 +6,33 @@ public class MarioMovement : MonoBehaviour
 {
     public Animator animator;
     public RuntimeAnimatorController stage0, stage1, stage2;
+    public int currentSage = 0;
     public AudioClip moveMario;
     public AudioClip jumpMario;
     public AudioClip enemySound;
     public AudioClip FlagSound;
     public GameObject Flag;
     public GameObject gameover;
+    public GameObject tile;
+    public GameObject Aenemy;
+    public GameObject Bombtile;
     public Rigidbody2D rb;
     public float movementSpeed = 8f;
     public float jumpForce = 14f;
     public TextMeshProUGUI coin;
     public Collider2D polygon;
     int x = 0;
-    int y = 0;
     bool jump = true;
-    int z = 0;
+    float jumpTime = 0.2f;
+    bool canJump = true;
+    public bool bombis = true;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator.runtimeAnimatorController = stage0;
         animator.SetTrigger("Trigger");
-        if (y == 0)
+        if (currentSage == 0)
         {
             polygon.enabled = false;
         }
@@ -36,17 +41,36 @@ public class MarioMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (y == 0)
+        if (currentSage == 0)
+        {
+            animator.runtimeAnimatorController = stage0;
+        }
+        if (currentSage == -1)
+        {
+            Destroy(gameObject);
+            gameover.SetActive(true);
+            Time.timeScale = 0;
+        }
+        if (currentSage == 1)
+        {
+            animator.runtimeAnimatorController = stage1;
+
+        }
+        if (currentSage == 2)
+        {
+            animator.runtimeAnimatorController = stage2;
+        }
+        if (currentSage == 0)
         {
             polygon.enabled = false;
         }
-        if (y > 0)
+        if (currentSage > 0)
         {
             polygon.enabled = true;
         }
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        if(horizontalInput == 1)
+        if (horizontalInput == 1)
         {
             AudioSource.PlayClipAtPoint(moveMario, transform.position, 1);
             animator.SetInteger("Int", 1);
@@ -61,18 +85,41 @@ public class MarioMovement : MonoBehaviour
             animator.SetInteger("Int", 0);
         }
         rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
-        if (Input.GetButtonDown("Jump"))
+
+        if (jump == true)
         {
-            if (jump == true)
+            if (Input.GetButtonDown("Jump"))
             {
-                AudioSource.PlayClipAtPoint(jumpMario, transform.position, 1);
-                animator.SetTrigger("Trigger");
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                jumpTime = 0.2f;
+            }
+            else if (Input.GetButton("Jump") && canJump)
+            {
+                jumpTime -= Time.deltaTime;
+
+                if (jumpTime < 0f)
+                {
+                    canJump = false;
+                    jump = false;
+                    AudioSource.PlayClipAtPoint(jumpMario, transform.position, 1);
+                    animator.SetTrigger("Trigger");
+                    rb.velocity = new Vector2(rb.velocity.x, 13);
+                }
+            }
+            else if (Input.GetButtonUp("Jump") && canJump)
+            {
+                if (jumpTime > 0f)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, 9.5f);
+                    AudioSource.PlayClipAtPoint(jumpMario, transform.position, 1);
+                    animator.SetTrigger("Trigger");
+                }
+                canJump = true;
                 jump = false;
             }
-        }
 
-       if( Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetButtonUp("Jump")) canJump = true;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             movementSpeed++;
         }
@@ -81,79 +128,65 @@ public class MarioMovement : MonoBehaviour
             movementSpeed--;
         }
 
-
-
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        {
-            jump = true;
-        }
 
+        jump = true;
         animator.SetTrigger("Trigger");
         if (collision.gameObject.tag == "pipe")
         {
             animator.SetInteger("Int", 2);
         }
-        if (collision.gameObject.tag == "enemy")
-        {
-            y = y-1;
-            if (y == -1)
-            {
-                Destroy(gameObject);
-                gameover.SetActive(true);
-                Time.timeScale = 0;
-            }
-            if (y == 0)
-            { 
-                animator.runtimeAnimatorController = stage0;
-            }
-            if (y == 1)
-            {
-
-                animator.runtimeAnimatorController = stage1;
-            }
-        }
+       
     }
 
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "EnemyHitPoint")
+        {
+            collision.transform.parent.GetComponent<EnemyMovement>().Dead();
+        }
         if (collision.gameObject.tag == "enemy")
         {
-            var coliders = collision.gameObject.GetComponentsInChildren<Collider2D>();
-
-            for (int i = 0; i < coliders.Length; i++)
-            {
-                coliders[i].enabled = false;
-            }
-
-            Destroy(collision.gameObject, 0.5f);
-            AudioSource.PlayClipAtPoint(enemySound, transform.position, 1);
+            currentSage--;
         }
-
+        if (collision.gameObject.tag == "Ttile")
+        {
+            tile.SetActive(true);
+        }
+        if (collision.gameObject.tag == "Tenemy")
+        {
+            Debug.Log(12345);
+            Aenemy.SetActive(true);
+        }
+        if (collision.gameObject.tag == "powerUp")
+        {
+            Destroy(Aenemy, 0.5F);
+        }
         if (collision.gameObject.tag == "stick")
         {
             LeanTween.moveY(Flag, -2.68f, 2);
             AudioSource.PlayClipAtPoint(FlagSound, transform.position, 1);
-        }
+            Time.timeScale = 0;
+           
+        }  
         if (collision.gameObject.tag == "coin")
         {
             x++;
             coin.text = x.ToString();
         }
-        if (collision.gameObject.tag == "Aenemy")
+        if (collision.gameObject.tag == "poweUp")
         {
-            animator.runtimeAnimatorController = stage1;
-            y = 1;
+            currentSage++;
         }
-    
-        if (collision.gameObject.tag == "Benemy")
+        if (collision.gameObject.tag == "bombtile")
         {
-            animator.runtimeAnimatorController = stage2;
-            y = 2;
+            Debug.Log(234567890);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            bombis = true;
+        
         }
-       
+
     }
 }

@@ -17,6 +17,12 @@ TagManager:
   - ground
   - brick
   - brick1
+  - Ttile
+  - Tenemy
+  - Aenemy2
+  - bombtile
+  - poweUp
+  - EnemyHitPoint
   layers:
   - Default
   - TransparentFX
@@ -27,9 +33,9 @@ TagManager:
   - 
   - 
   - Boxes
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Enemy
   - 
   - 
   - 
