@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombBricks: {fileID: 7110385871735669013}
-  force: 30
+  force: 40
 --- !u!1 &7110385872887567679
 GameObject:
   m_ObjectHideFlags: 0

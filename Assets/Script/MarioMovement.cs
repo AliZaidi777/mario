@@ -19,8 +19,9 @@ public class MarioMovement : MonoBehaviour
     public float movementSpeed = 8f;
     public float jumpForce = 14f;
     public TextMeshProUGUI coin;
-    public Collider2D collider;
+    public Collider2D coollider;
     int x = 0;
+    public static bool coinIs = true;
     bool jump = true;
     float jumpTime = 0.2f;
     bool canJump = true;
@@ -33,7 +34,7 @@ public class MarioMovement : MonoBehaviour
         animator.SetTrigger("Trigger");
         if (currentSage == 0)
         {
-            collider.enabled = false;
+            coollider.enabled = false;
         }
     }
 
@@ -61,11 +62,11 @@ public class MarioMovement : MonoBehaviour
         }
         if (currentSage == 0)
         {
-            collider.enabled = false;
+            coollider.enabled = false; 
         }
         if (currentSage > 0)
         {
-            collider.enabled = true;
+            coollider.enabled = true;
         }
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -142,6 +143,7 @@ public class MarioMovement : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+      
         if (collision.gameObject.tag == "EnemyHitPoint")
         {
             collision.transform.parent.GetComponent<EnemyMovement>().Dead();
@@ -156,7 +158,6 @@ public class MarioMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "Tenemy")
         {
-            Debug.Log(12345);
             Aenemy.SetActive(true);
         }
         if (collision.gameObject.tag == "powerUp")
@@ -174,12 +175,12 @@ public class MarioMovement : MonoBehaviour
         {
             x++;
             coin.text = x.ToString();
+            coinIs = true;
         }
         if (collision.gameObject.tag == "poweUp")
         {
             currentSage++;
         }
-
 
         if (collision.isTrigger)
         {
